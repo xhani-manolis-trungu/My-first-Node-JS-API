@@ -8,6 +8,7 @@ module.exports = function(app, db) {
         res.send({ 'error': 'An error has occurred' });
       } else {
         res.send(result.ops[0]);
+        return.console(log,err)
       }
     });
   });

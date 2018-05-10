@@ -4,11 +4,11 @@ const express        = require('express');
 const MongoClient    = require('mongodb').MongoClient;
 const bodyParser     = require('body-parser');
 const app            = express();
-
+const MONGO_URL      = 'mongodb://xhanimanolistrungu:xhanimanolistrungu1234@ds119080.mlab.com:19080/mynodeapi';
 const db             = require('./config/db')
 
 //because we need to interact with MongoDB
-//so we are going to require the http module to listen
+//so we are going to listen
 //on a port and get requests and send responses
 
 
@@ -21,13 +21,15 @@ const port = 8000;
 //For more information, please see the qs library.
 app.use(bodyParser.urlencoded({ extended: true }));
 
-MongoClient.connect(db.url, (err, database) => {
-  if (err) return console.log(err)
+MongoClient.connect(MONGO_URL, (err, database) => {
+  if (err) {
+    return console.log(err)
+
 
   //add the database name and not the collection name
   db = database.db("mynodeapi")
   require('./app/routes')(app, db);
-
+}
 //at this point because we haven't set up a db we are passing an empty object
 //require('./app/routes')(app, {});
 
