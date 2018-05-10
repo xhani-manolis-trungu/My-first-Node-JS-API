@@ -20,9 +20,9 @@ const port = 8000;
 //For more information, please see the qs library.
 app.use(bodyParser.urlencoded({ extended: true }))
 
-MongoClient.connect(db.url, (err, database) => {
+MongoClient.connect(db.url, function(err, database) {
   const db = database.db('mynodeapi');
-  const collection = db.collection('notes');
+  const collection = database.db('mynodeapi').collection('notes');
   if (err) return console.log(err)
   require('./app/routes')(app, database);
   app.listen(port, () => {
