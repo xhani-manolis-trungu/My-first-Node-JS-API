@@ -4,13 +4,12 @@ const express        = require('express');
 const MongoClient    = require('mongodb').MongoClient;
 const bodyParser     = require('body-parser');
 const app            = express();
-const MONGO_URL      = 'mongodb://xhanimanolistrungu:xhanimanolistrungu1234@ds119080.mlab.com:19080/mynodeapi';
+//const MONGO_URL      = "mongodb://xhanimanolistrungu:xhanimanolistrungu1234@ds119080.mlab.com:19080/mynodeapi";
 const db             = require('./config/db')
 
 //because we need to interact with MongoDB
 //so we are going to listen
 //on a port and get requests and send responses
-
 
 const port = 8000;
 
@@ -19,23 +18,16 @@ const port = 8000;
 //The "extended" syntax allows for rich objects and arrays
 //to be encoded into the URL-encoded format, allowing for a JSON-like experience with URL-encoded.
 //For more information, please see the qs library.
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }))
 
-MongoClient.connect(MONGO_URL, (err, database) => {
-  if (err) {
-    return console.log(err)
-
-
-  //add the database name and not the collection name
-  db = database.db("mynodeapi")
-  require('./app/routes')(app, db);
-}
-//at this point because we haven't set up a db we are passing an empty object
-//require('./app/routes')(app, {});
-
-app.listen(port, () => {
-  console.log('We are live on ' + port);
-});
+MongoClient.connect(db.url, (err, database) => {
+  const db = database.db('mynodeapi');
+  const collection = db.collection('notes');
+  if (err) return console.log(err)
+  require('./app/routes')(app, database);
+  app.listen(port, () => {
+    console.log('We are live on ' + port);
+  })
 })
 
 //at this point our server doesn't do much.

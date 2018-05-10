@@ -1,16 +1,15 @@
 module.exports = function(app, db) {
-  const collection =
   app.post('/notes', (req, res) => {
     const note = { text: req.body.body, title: req.body.title };
     //to create a note we have to call insert on the collection named notes
      db.collection('notes').insert(note, (err, result) => {
       //If there is error after insertion we want to send back an error or the inserted object
-        res.send({ 'error': 'An error has occurred' });
-      } else {
-        res.send(result.ops[0]);
-        return.console(log,err)
-      }
-    });
+       if (err){
+         res.send({ 'error': 'An error has occurred' });
+       } else {
+         res.send(result.ops[0])
+       }
+     });
   });
 };
 
