@@ -1,0 +1,19 @@
+{
+  "name": "myapp",
+  "version": "1.0.0",
+  "description": "RESTful API CRUD Operations Fully Functional with Node, Express, MongoDB ",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon server.js"
+  },
+  "author": "Xhani Manolis Trungu",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
+    "mongodb": "^3.0.8"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.4"
+  }
+}
